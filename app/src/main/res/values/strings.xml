@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FoodScanner_v2</string>
+    <string name="app_name">TestApplication</string>
     <string name="title_scan">Scan</string>
     <string name="title_history">History</string>
     <string name="title_favorites">Favorites</string>
