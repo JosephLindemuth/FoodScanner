@@ -1,4 +1,4 @@
-package com.example.foodscanner_v2.ui.favorites
+package com.example.testapplication.ui.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

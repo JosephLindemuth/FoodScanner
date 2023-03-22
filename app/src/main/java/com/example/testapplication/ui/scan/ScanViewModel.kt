@@ -1,4 +1,4 @@
-package com.example.foodscanner_v2.ui.scan
+package com.example.testapplication.ui.scan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

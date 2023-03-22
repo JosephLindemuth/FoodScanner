@@ -1,4 +1,4 @@
-package com.example.foodscanner_v2.ui.history
+package com.example.testapplication.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
