@@ -113,7 +113,11 @@ override fun onCreate(savedInstanceState: Bundle?) {
                     return@MlKitAnalyzer
                 }
 
-                val qrCodeViewModel = QrCodeViewModel(barcodeResults[0])
+                val qrCodeViewModel = QrCodeViewModel(barcodeResults[0]) // only needed for displaying qr code
+                // Log is filled with E/BLASTBufferQueue errors so it is hard to see this printout
+                // click the Logcat tab instead of the Run tab and add "-tag~:BLASTBufferQueue" to the
+                // Logcat filter after "package:mine"
+                Log.d("Barcode Results", qrCodeViewModel.qrContent)
 //                val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
