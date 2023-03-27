@@ -9,14 +9,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.testapplication.databinding.ActivityMainBinding
 import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -32,59 +30,42 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var barcodeScanner: BarcodeScanner
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//
-//        super.onCreate(savedInstanceState)
-//
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        // Request camera permissions
-//        if (allPermissionsGranted()) {
-//            Log.d("TAG", "permissions granted")
-//            startCamera()
-//        } else {
-//            Log.d("TAG2", "permissions NOT granted")
-//            ActivityCompat.requestPermissions(
-//                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-//            )
-//        }
-//
-//        val navView: BottomNavigationView = binding.navView
-//
-////        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        // Passing each menu ID as a set of Ids because each
-//        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_home, R.id.navigation_history, R.id.navigation_favorites
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
-//
-////        cameraExecutor = Executors.newSingleThreadExecutor()
-//
-//    }
-override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    viewBinding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(viewBinding.root)
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-    // Request camera permissions
-    if (allPermissionsGranted()) {
-        startCamera()
-    } else {
-//        ActivityCompat.requestPermissions(
-//            this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-//        )
-        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-//        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
+        super.onCreate(savedInstanceState)
+
+        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            Log.d("TAG", "permissions granted")
+            startCamera()
+        } else {
+            Log.d("TAG2", "permissions NOT granted")
+            ActivityCompat.requestPermissions(
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
+        }
+
+        val navView: BottomNavigationView = viewBinding.navView
+
+//        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_history, R.id.navigation_favorites
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+
+//        cameraExecutor = Executors.newSingleThreadExecutor()
 
     }
-}
 
     private fun startCamera() {
         Log.d("", "STARTING CAMERA Yeet")
@@ -118,11 +99,11 @@ override fun onCreate(savedInstanceState: Bundle?) {
                 // click the Logcat tab instead of the Run tab and add "-tag~:BLASTBufferQueue" to the
                 // Logcat filter after "package:mine"
                 Log.d("Barcode Results", qrCodeViewModel.qrContent)
-//                val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
+                val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
                 previewView.overlay.clear()
-//                previewView.overlay.add(qrCodeDrawable)
+                previewView.overlay.add(qrCodeDrawable)
             }
         )
 
