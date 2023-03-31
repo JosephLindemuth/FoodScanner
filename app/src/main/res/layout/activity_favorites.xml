@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:id="@+id/textFavorites"/>
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
         android:text="List of Favorites"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="?android:textColorPrimary"
         android:layout_below="@+id/textFavorites"
         android:padding="15sp"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView

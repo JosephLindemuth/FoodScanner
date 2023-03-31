@@ -13,7 +13,7 @@
         android:textSize="50dp"
         android:textStyle="bold"
         android:layout_centerInParent="true"
-        android:textColor="@color/black"/>
+        android:textColor="?android:textColorPrimary"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
