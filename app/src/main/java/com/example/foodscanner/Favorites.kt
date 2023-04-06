@@ -15,12 +15,16 @@ class Favorites : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.History -> {
-                    startActivity(Intent(applicationContext, History::class.java))
+                    val outIntent: Intent = Intent(applicationContext, History::class.java)
+                    outIntent.putExtra("ScannedCodes", intent.getStringArrayExtra("ScannedCodes"))
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.Scan -> {
-                    startActivity(Intent(applicationContext, Scan::class.java))
+                    val outIntent: Intent = Intent(applicationContext, Scan::class.java)
+                    outIntent.putExtra("ScannedCodes", intent.getStringArrayExtra("ScannedCodes"))
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }

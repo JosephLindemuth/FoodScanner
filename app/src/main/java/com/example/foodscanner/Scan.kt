@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.mlkit.vision.MlKitAnalyzer
@@ -14,10 +13,6 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.foodscanner.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -32,10 +27,14 @@ class Scan : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var barcodeScanner: BarcodeScanner
 
+    private val scanHistory = HashSet<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        // this adds all of the scanned codes to ScanHistory
+        scanHistory.addAll(intent.getStringArrayExtra("ScannedCodes") ?: emptyArray<String>())
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
@@ -43,12 +42,16 @@ class Scan : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.History -> {
-                    startActivity(Intent(applicationContext, History::class.java))
+                    val outIntent: Intent = Intent(applicationContext, History::class.java)
+                    outIntent.putExtra("ScannedCodes", scanHistory.toTypedArray())
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.fav -> {
-                    startActivity(Intent(applicationContext, Favorites::class.java))
+                    val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
+                    outIntent.putExtra("ScannedCodes", scanHistory.toTypedArray())
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -59,10 +62,10 @@ class Scan : AppCompatActivity() {
 
         // Request camera permissions
         if (allPermissionsGranted()) {
-            Log.d("TAG", "permissions granted")
+            Log.d("Permissions", "permissions granted")
             startCamera()
         } else {
-            Log.d("TAG2", "permissions NOT granted")
+            Log.d("Permissions", "permissions NOT granted")
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
@@ -71,7 +74,7 @@ class Scan : AppCompatActivity() {
 
     }
     private fun startCamera() {
-        Log.d("", "STARTING CAMERA Yeet")
+        Log.d("Camera", "Camera Started")
         var cameraController = LifecycleCameraController(baseContext)
 
         val previewView: PreviewView = viewBinding.viewFinder
@@ -103,6 +106,7 @@ class Scan : AppCompatActivity() {
                 // click the Logcat tab instead of the Run tab and add "-tag~:BLASTBufferQueue" to the
                 // Logcat filter after "package:mine"
                 Log.d("Barcode Results", qrCodeViewModel.qrContent)
+                scanHistory.add(qrCodeViewModel.qrContent)
                 val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
@@ -132,7 +136,6 @@ class Scan : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                Log.d("", "STARTING CAMERA")
                 startCamera()
             } else {
                 Toast.makeText(this,
