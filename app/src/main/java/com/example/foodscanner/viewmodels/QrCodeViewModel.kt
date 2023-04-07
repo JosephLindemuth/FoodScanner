@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.foodscanner
+package com.example.foodscanner.viewmodels
 
 import android.content.Intent
 import android.graphics.Rect

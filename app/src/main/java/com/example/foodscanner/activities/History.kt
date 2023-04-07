@@ -1,4 +1,4 @@
-package com.example.foodscanner
+package com.example.foodscanner.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodscanner.FoodScanner
+import com.example.foodscanner.R
 import com.example.foodscanner.ui.HistoryRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -14,7 +16,7 @@ class History : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        var scanHistory: Array<String> = intent.getStringArrayExtra("ScannedCodes") ?: emptyArray<String>()
+        val scanHistory: Array<String> = (application as FoodScanner).scanHistory.toTypedArray();
 
         scanHistory.forEachIndexed { index, barcode ->
             Log.d("History Value $index", barcode)
@@ -33,7 +35,6 @@ class History : AppCompatActivity() {
             when (item.itemId) {
                 R.id.Scan -> {
                     val outIntent: Intent = Intent(applicationContext, Scan::class.java)
-                    outIntent.putExtra("ScannedCodes", intent.getStringArrayExtra("ScannedCodes"))
                     startActivity(outIntent)
 
                     overridePendingTransition(0, 0)
@@ -41,7 +42,6 @@ class History : AppCompatActivity() {
                 }
                 R.id.fav -> {
                     val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
-                    outIntent.putExtra("ScannedCodes", intent.getStringArrayExtra("ScannedCodes"))
                     startActivity(outIntent)
 
                     overridePendingTransition(0, 0)
