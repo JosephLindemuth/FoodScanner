@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.foodscanner
+package com.example.foodscanner.viewmodels
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
