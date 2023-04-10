@@ -46,8 +46,12 @@ class OverviewViewModel : ViewModel() {
      */
     private fun getMarsPhotos() {
         viewModelScope.launch {
-            val listResult = BarcodeApi.retrofitService.getPhotos()
-            _status.value = listResult
+            try {
+                val listResult = BarcodeApi.retrofitService.getPhotos()
+                _status.value = "Success: ${listResult.size} Mars photos retrieved"
+            } catch (e: Exception) {
+                _status.value = "Failure: ${e.message}"
+            }
         }
     }
 }
