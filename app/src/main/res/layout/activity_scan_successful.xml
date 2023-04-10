@@ -4,27 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.Favorites">
+    tools:context=".activities.ScanSuccessful">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Favorites"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:textColor="?android:textColorPrimary"
-        android:id="@+id/textFavorites"/>
-    <TextView
+        android:id="@+id/ScanSuccessfulTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List of Favorites"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="@string/ScanSuccessfulTitle"
         android:textColor="?android:textColorPrimary"
-        android:layout_below="@+id/textFavorites"
-        android:padding="15sp"/>
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/scannedItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:text="test"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/overviewFragment"
+        android:name="com.example.foodscanner.overview.OverviewFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_overview" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +45,5 @@
         app:itemTextColor="@drawable/selector"
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

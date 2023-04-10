@@ -1,8 +1,9 @@
-package com.example.foodscanner
+package com.example.foodscanner.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.foodscanner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Favorites : AppCompatActivity() {
@@ -15,12 +16,14 @@ class Favorites : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.History -> {
-                    startActivity(Intent(applicationContext, History::class.java))
+                    val outIntent: Intent = Intent(applicationContext, History::class.java)
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.Scan -> {
-                    startActivity(Intent(applicationContext, Scan::class.java))
+                    val outIntent: Intent = Intent(applicationContext, Scan::class.java)
+                    startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
