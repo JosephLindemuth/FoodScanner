@@ -114,6 +114,11 @@ class Scan : AppCompatActivity() {
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
                 previewView.overlay.clear()
                 previewView.overlay.add(qrCodeDrawable)
+
+                // switch to scan succeeded tab
+                val outIntent: Intent = Intent(applicationContext, ScanSuccessful::class.java)
+                startActivity(outIntent)
+                overridePendingTransition(0, 0)
             }
         )
 

@@ -2,4 +2,5 @@
     <string name="app_name">FoodScanner</string>
     <string name="HistoryTitle">History</string>
     <string name="HistoryPlaceholder">Hello There</string>
+    <string name="ScanSuccessfulTitle">Item Scanned</string>
 </resources>
