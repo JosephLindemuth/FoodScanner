@@ -32,6 +32,7 @@ class Scan : AppCompatActivity() {
     private lateinit var barcodeScanner: BarcodeScanner
 
     private lateinit var scanHistory: HashSet<String>
+    private var scanned = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -76,6 +77,10 @@ class Scan : AppCompatActivity() {
 
     }
     private fun startCamera() {
+//        Log.d("Camera", "Entering start camera")
+//        if (scanned == true) {
+//            return
+//        }
         Log.d("Camera", "Camera Started")
         var cameraController = LifecycleCameraController(baseContext)
 
@@ -93,6 +98,10 @@ class Scan : AppCompatActivity() {
                 CameraController.COORDINATE_SYSTEM_VIEW_REFERENCED,
                 ContextCompat.getMainExecutor(this)
             ) { result: MlKitAnalyzer.Result? ->
+                Log.d("Camera", "Checking Result")
+                if (scanned == true) {
+                    return@MlKitAnalyzer
+                }
                 val barcodeResults = result?.getValue(barcodeScanner)
                 if ((barcodeResults == null) ||
                     (barcodeResults.size == 0) ||
@@ -102,6 +111,8 @@ class Scan : AppCompatActivity() {
                     previewView.setOnTouchListener { _, _ -> false } //no-op
                     return@MlKitAnalyzer
                 }
+
+                scanned = true
 
                 val qrCodeViewModel = QrCodeViewModel(barcodeResults[0]) // only needed for displaying qr code
                 // Log is filled with E/BLASTBufferQueue errors so it is hard to see this printout
