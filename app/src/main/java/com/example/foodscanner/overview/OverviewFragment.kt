@@ -25,7 +25,7 @@ import androidx.fragment.app.viewModels
 import com.example.foodscanner.databinding.FragmentOverviewBinding
 
 /**
- * This fragment shows the the status of the Mars photos web services transaction.
+ * This fragment shows the the status of product info web services transaction.
  */
 class OverviewFragment : Fragment() {
 

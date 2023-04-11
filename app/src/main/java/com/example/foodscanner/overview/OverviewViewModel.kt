@@ -61,7 +61,7 @@ class OverviewViewModel : ViewModel() {
     }
 
     private fun parseResponse(response: String): ProductInfo {
-        val parsed: ProductInfo = ProductInfo()
+        val parsed = ProductInfo()
         val json = JSONObject(response)
         if (json.getInt("status") == 1) {
             val jsonProduct = json.getJSONObject("product")
@@ -76,20 +76,6 @@ class OverviewViewModel : ViewModel() {
 
         return parsed
     }
-//        if (out.status === 1) {
-//            info.ingredients = out.product.ingredients_text;
-//            info.product = smartGetProductName(out.product); // not every product has a "product_name"
-//            info.image = out.product.image_front_small_url
-//        } else {
-//            info.error = "Product not found"
-//        }
-//
-//        return info;
-//    })
-//    .catch(error => {
-//        console.log(error)
-//    });
-//    }
 
     // Finds first field that starts with "product_name" and returns associated value
 //    function smartGetProductName(product) {
