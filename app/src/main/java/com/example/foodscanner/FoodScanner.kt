@@ -1,6 +1,10 @@
 package com.example.foodscanner
 
+import android.R
 import android.app.Application
+import android.view.Menu
+import android.view.MenuInflater
+
 
 class FoodScanner : Application() {
     public val scanHistory = HashSet<String>() // Hashset is unordered which should be change to be an ordered list
@@ -9,4 +13,5 @@ class FoodScanner : Application() {
     override fun onCreate() {
         super.onCreate()
     }
+
 }

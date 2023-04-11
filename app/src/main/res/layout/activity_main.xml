@@ -25,6 +25,7 @@
         app:menu="@menu/menu"
         android:layout_alignParentBottom="true"
         />
+
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
