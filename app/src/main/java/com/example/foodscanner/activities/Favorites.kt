@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodscanner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,5 +39,17 @@ class Favorites : AppCompatActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_topright, menu)
         return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.AllergiesMenu -> {
+                val outIntent: Intent = Intent(applicationContext, allergies::class.java)
+                startActivity(outIntent)
+                overridePendingTransition(0, 0)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
