@@ -2,32 +2,27 @@ package com.example.foodscanner.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
-import com.example.foodscanner.ui.HistoryRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class History : AppCompatActivity() {
+class ScanSuccessful : AppCompatActivity() {
+
+    var lastScan: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
+        setContentView(R.layout.activity_scan_successful)
 
-        val scanHistory: Array<String> = (application as FoodScanner).scanHistory.toTypedArray();
+        // get data from scanHistory
+        lastScan = (application as FoodScanner).lastScanned
 
-        scanHistory.forEachIndexed { index, barcode ->
-            Log.d("History Value $index", barcode)
-        }
-
-        // set up RecyclerView for files
-        val scanHistoryList: RecyclerView = findViewById<RecyclerView>(R.id.ScanHistory)
-        scanHistoryList.layoutManager = LinearLayoutManager(this)
-        scanHistoryList.setHasFixedSize(true)
-        val historyAdapter = HistoryRecyclerAdapter(scanHistory)
-        scanHistoryList.adapter = historyAdapter
+        // set scannedItem textView to display what the last scanned item was
+        val textView = findViewById<View>(R.id.scannedItem) as TextView
+        textView.text = lastScan
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
@@ -51,5 +46,11 @@ class History : AppCompatActivity() {
             }
             false
         })
+    }
+
+    fun getMyData(): Bundle? {
+        val bundle = Bundle()
+        bundle.putString("lastScan", lastScan)
+        return bundle
     }
 }

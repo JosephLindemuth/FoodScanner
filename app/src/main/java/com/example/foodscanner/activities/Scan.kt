@@ -31,14 +31,15 @@ class Scan : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var barcodeScanner: BarcodeScanner
 
-    private lateinit var scanHistory: HashSet<String>
+//    private lateinit var scanHistory: HashSet<String>
+    private lateinit var app: FoodScanner
+    private var scanned = false; // flag to keep track of if a barcode has been scanned in this instance yet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val app = application as FoodScanner
-        scanHistory = app.scanHistory;
+        app = application as FoodScanner
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
@@ -93,6 +94,9 @@ class Scan : AppCompatActivity() {
                 CameraController.COORDINATE_SYSTEM_VIEW_REFERENCED,
                 ContextCompat.getMainExecutor(this)
             ) { result: MlKitAnalyzer.Result? ->
+                if (scanned == true) { // escape if scanner has already found result
+                    return@MlKitAnalyzer
+                }
                 val barcodeResults = result?.getValue(barcodeScanner)
                 if ((barcodeResults == null) ||
                     (barcodeResults.size == 0) ||
@@ -103,17 +107,26 @@ class Scan : AppCompatActivity() {
                     return@MlKitAnalyzer
                 }
 
+                scanned = true
+
                 val qrCodeViewModel = QrCodeViewModel(barcodeResults[0]) // only needed for displaying qr code
                 // Log is filled with E/BLASTBufferQueue errors so it is hard to see this printout
                 // click the Logcat tab instead of the Run tab and add "-tag~:BLASTBufferQueue" to the
                 // Logcat filter after "package:mine"
-                Log.d("Barcode Results", qrCodeViewModel.qrContent)
-                scanHistory.add(qrCodeViewModel.qrContent)
+                val upc: String = qrCodeViewModel.qrContent
+                Log.d("Barcode Results", upc)
+                app.lastScanned = upc
+                app.scanHistory.add(upc)
                 val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
                 previewView.overlay.clear()
                 previewView.overlay.add(qrCodeDrawable)
+
+                // switch to scan succeeded tab
+                val outIntent: Intent = Intent(applicationContext, ScanSuccessful::class.java)
+                startActivity(outIntent)
+                overridePendingTransition(0, 0)
             }
         )
 
