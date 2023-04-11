@@ -36,7 +36,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface BarcodeApiService {
-    @GET("photos")
+    @GET("info")
     suspend fun getInfo(): String
 }
 

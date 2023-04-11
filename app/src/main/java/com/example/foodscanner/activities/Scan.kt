@@ -32,7 +32,7 @@ class Scan : AppCompatActivity() {
     private lateinit var barcodeScanner: BarcodeScanner
 
     private lateinit var scanHistory: HashSet<String>
-    private var scanned = false;
+    private var scanned = false; // flag to keep track of if a barcode has been scanned in this instance yet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -77,10 +77,6 @@ class Scan : AppCompatActivity() {
 
     }
     private fun startCamera() {
-//        Log.d("Camera", "Entering start camera")
-//        if (scanned == true) {
-//            return
-//        }
         Log.d("Camera", "Camera Started")
         var cameraController = LifecycleCameraController(baseContext)
 
@@ -98,8 +94,7 @@ class Scan : AppCompatActivity() {
                 CameraController.COORDINATE_SYSTEM_VIEW_REFERENCED,
                 ContextCompat.getMainExecutor(this)
             ) { result: MlKitAnalyzer.Result? ->
-                Log.d("Camera", "Checking Result")
-                if (scanned == true) {
+                if (scanned == true) { // escape if scanner has already found result
                     return@MlKitAnalyzer
                 }
                 val barcodeResults = result?.getValue(barcodeScanner)

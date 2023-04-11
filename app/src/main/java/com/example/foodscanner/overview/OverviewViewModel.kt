@@ -22,16 +22,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodscanner.network.BarcodeApi
+import com.example.foodscanner.network.ProductInfo
 import kotlinx.coroutines.launch
-import com.fasterxml.jackson.module.kotlin.*
-import java.net.URL
+import org.json.JSONObject
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
 class OverviewViewModel : ViewModel() {
-
-    private val mapper = jacksonObjectMapper()
 
     // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<String>()
@@ -52,14 +50,57 @@ class OverviewViewModel : ViewModel() {
     private fun getItemInfo() {
         viewModelScope.launch {
             try {
-                val listResult: String = BarcodeApi.retrofitService.getInfo()
-                Log.d("Results", listResult)
-                val obj1 = mapper.readValue<String>(listResult)
-                val obj2 = mapper.readValue<URL>("https://world.openfoodfacts.org/api/v0/product/070847811169.json/")
-                _status.value = "Success: $listResult food info received"
+                val apiResponse: String = BarcodeApi.retrofitService.getInfo()
+//                Log.d("Results", apiResponse)
+                val productInfo: ProductInfo = parseResponse(apiResponse)
+                _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl}"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
             }
         }
+    }
+
+    private fun parseResponse(response: String): ProductInfo {
+        val parsed: ProductInfo = ProductInfo()
+        val json = JSONObject(response)
+        if (json.getInt("status") == 1) {
+            val jsonProduct = json.getJSONObject("product")
+            parsed.ingredients = jsonProduct.getString("ingredients_text")
+
+            parsed.productName = smartGetProductName(jsonProduct)
+
+            parsed.imageUrl = jsonProduct.getString("image_front_small_url")
+        } else {
+            parsed.error = "Product not found"
+        }
+
+        return parsed
+    }
+//        if (out.status === 1) {
+//            info.ingredients = out.product.ingredients_text;
+//            info.product = smartGetProductName(out.product); // not every product has a "product_name"
+//            info.image = out.product.image_front_small_url
+//        } else {
+//            info.error = "Product not found"
+//        }
+//
+//        return info;
+//    })
+//    .catch(error => {
+//        console.log(error)
+//    });
+//    }
+
+    // Finds first field that starts with "product_name" and returns associated value
+//    function smartGetProductName(product) {
+//        for(key of Object.keys(product)) {
+//            if (key.startsWith("product_name")) {
+//                return product[key];
+//            }
+//        }
+//    }
+
+    private fun smartGetProductName(product: JSONObject): String {
+        return product.getString("product_name")
     }
 }
