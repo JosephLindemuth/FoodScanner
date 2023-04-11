@@ -2,6 +2,8 @@ package com.example.foodscanner.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodscanner.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,5 +33,10 @@ class Favorites : AppCompatActivity() {
             }
             false
         })
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
     }
 }

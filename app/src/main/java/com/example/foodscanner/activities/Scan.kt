@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.mlkit.vision.MlKitAnalyzer
@@ -151,5 +153,10 @@ class Scan : AppCompatActivity() {
         super.onDestroy()
         cameraExecutor.shutdown()
         barcodeScanner.close()
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
     }
 }
