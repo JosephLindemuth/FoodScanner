@@ -56,7 +56,7 @@ class History : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.menu_topright, menu)
         return true
     }
 }

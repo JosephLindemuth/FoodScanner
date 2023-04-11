@@ -17,7 +17,7 @@
         android:theme="@style/Theme.FoodScanner"
         tools:targetApi="31">
         <activity
-            android:name=".allergies"
+            android:name=".activities.allergies"
             android:exported="false" />
         <activity
             android:name=".activities.Favorites"

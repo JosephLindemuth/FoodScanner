@@ -1,7 +1,6 @@
-package com.example.foodscanner.ui.main;
+package com.example.foodscanner.ui.main
 
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 
-public class AllergiesViewModel extends ViewModel {
-    // TODO: Implement the ViewModel
+class AllergiesViewModel : ViewModel() { // TODO: Implement the ViewModel
 }

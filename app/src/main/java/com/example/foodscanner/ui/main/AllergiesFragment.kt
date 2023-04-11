@@ -1,39 +1,32 @@
-package com.example.foodscanner.ui.main;
+package com.example.foodscanner.ui.main
 
-import androidx.lifecycle.ViewModelProvider;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.foodscanner.R
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.foodscanner.R;
-
-public class AllergiesFragment extends Fragment {
-
-    private AllergiesViewModel mViewModel;
-
-    public static AllergiesFragment newInstance() {
-        return new AllergiesFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(AllergiesViewModel.class);
+class AllergiesFragment : Fragment() {
+    private var mViewModel: AllergiesViewModel? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mViewModel = ViewModelProvider(this).get(AllergiesViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_allergies, container, false);
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_allergies, container, false)
     }
 
+    companion object {
+        @JvmStatic
+        fun newInstance(): AllergiesFragment {
+            return AllergiesFragment()
+        }
+    }
 }
