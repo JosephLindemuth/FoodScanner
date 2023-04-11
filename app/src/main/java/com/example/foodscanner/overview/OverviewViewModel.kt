@@ -32,26 +32,23 @@ import org.json.JSONObject
 class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<String>("Loading product information...")
 
     // The external immutable LiveData for the request status
     val status: LiveData<String> = _status
-    /**
-     * Call getItemInfo() on init so we can display status immediately.
-     */
-    init {
-        getItemInfo()
-    }
+
+    init {    } // does nothing
 
     /**
      * Gets Item info information from the Barcode API Retrofit service and updates the
      * [MarsPhoto] [List] [LiveData].
      */
-    private fun getItemInfo() {
+    fun getItemInfo(upc: String) {
+
         viewModelScope.launch {
-            try {
-                val apiResponse: String = BarcodeApi.retrofitService.getInfo()
-//                Log.d("Results", apiResponse)
+            try { // "$BASE_URL$upc.json"
+                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("${Companion.BASE_URL}$upc.json")
+                Log.d("Results", apiResponse.toString())
                 val productInfo: ProductInfo = parseResponse(apiResponse)
                 _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl}"
             } catch (e: Exception) {
@@ -60,7 +57,7 @@ class OverviewViewModel : ViewModel() {
         }
     }
 
-    private fun parseResponse(response: String): ProductInfo {
+    private fun parseResponse(response: String?): ProductInfo {
         val parsed = ProductInfo()
         val json = JSONObject(response)
         if (json.getInt("status") == 1) {
@@ -77,7 +74,7 @@ class OverviewViewModel : ViewModel() {
         return parsed
     }
 
-    // Finds first field that starts with "product_name" and returns associated value
+    // js code that does what the below function needs to:
 //    function smartGetProductName(product) {
 //        for(key of Object.keys(product)) {
 //            if (key.startsWith("product_name")) {
@@ -86,7 +83,13 @@ class OverviewViewModel : ViewModel() {
 //        }
 //    }
 
+    // Finds first field that starts with "product_name" and returns associated value NOT IMPLEMENTED
     private fun smartGetProductName(product: JSONObject): String {
         return product.getString("product_name")
+    }
+
+    // Holds BASE_URL constant
+    companion object {
+        private const val BASE_URL = "https://world.openfoodfacts.org/api/v0/product/"
     }
 }

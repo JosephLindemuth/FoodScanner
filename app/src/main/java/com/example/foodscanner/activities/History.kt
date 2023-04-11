@@ -26,7 +26,7 @@ class History : AppCompatActivity() {
         val scanHistoryList: RecyclerView = findViewById<RecyclerView>(R.id.ScanHistory)
         scanHistoryList.layoutManager = LinearLayoutManager(this)
         scanHistoryList.setHasFixedSize(true)
-        val historyAdapter: HistoryRecyclerAdapter = HistoryRecyclerAdapter(scanHistory)
+        val historyAdapter = HistoryRecyclerAdapter(scanHistory)
         scanHistoryList.adapter = historyAdapter
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
