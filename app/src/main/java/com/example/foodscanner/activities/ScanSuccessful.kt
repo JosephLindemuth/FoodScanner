@@ -28,21 +28,19 @@ class ScanSuccessful : AppCompatActivity() {
         bottomNavigationView.selectedItemId
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.Scan -> {
-                    val outIntent: Intent = Intent(applicationContext, Scan::class.java)
+                R.id.History -> {
+                    val outIntent: Intent = Intent(applicationContext, History::class.java)
                     startActivity(outIntent)
-
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.fav -> {
                     val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
                     startActivity(outIntent)
-
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.History -> return@OnNavigationItemSelectedListener true
+                R.id.Scan -> return@OnNavigationItemSelectedListener true
             }
             false
         })

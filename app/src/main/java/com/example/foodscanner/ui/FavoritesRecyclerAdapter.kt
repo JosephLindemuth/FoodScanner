@@ -1,5 +1,6 @@
 package com.example.foodscanner.ui
 
+import FavoritesItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,19 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodscanner.R
 import java.util.*
 
-class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryHolder>()
+class FavoritesRecyclerAdapter() : RecyclerView.Adapter<FavoritesRecyclerAdapter.FavoritesHolder>()
 {
-    private val files: Vector<HistoryItem> = Vector()
+    private val files: Vector<FavoritesItem> = Vector()
 
     constructor(files: Array<String>) : this()
     {
         for (upc in files)
         {
-            this.files.add(HistoryItem(upc))
+            this.files.add(FavoritesItem(upc))
         }
     }
 
-    fun addUnique(newFile: HistoryItem)
+    fun addUnique(newFile: FavoritesItem)
     {
         if (contains(newFile) == false)
         {
@@ -29,17 +30,17 @@ class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.His
         }
     }
 
-    fun addFile(newFile: HistoryItem)
+    fun addFile(newFile: FavoritesItem)
     {
         files.add(newFile)
     }
 
-    fun removeFile(newFile: HistoryItem)
+    fun removeFile(newFile: FavoritesItem)
     {
         files.remove(newFile)
     }
 
-    fun contains(thisFile: HistoryItem) : Boolean
+    fun contains(thisFile: FavoritesItem) : Boolean
     {
         for (file in files)
         {
@@ -57,22 +58,21 @@ class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.His
         return files.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesHolder
     {
-        return HistoryHolder(LayoutInflater.from(parent.context).inflate(R.layout.history_item, parent, false))
+        return FavoritesHolder(LayoutInflater.from(parent.context).inflate(R.layout.favorites_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder: HistoryHolder, position: Int)
+    override fun onBindViewHolder(holder: FavoritesHolder, position: Int)
     {
-        val current: HistoryItem = files[position]
+        val current: FavoritesItem = files[position]
 
         holder.upc.text = current.upc
-        holder.fav.text = current.btn.toString()
     }
 
-    class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class FavoritesHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val upc: TextView = itemView.findViewById<TextView>(R.id.upc)
-        val fav: Button = itemView.findViewById<Button>(R.id.btn)
+        val fav: Button = itemView.findViewById(R.id.btn)
     }
 }
