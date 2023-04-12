@@ -17,15 +17,17 @@
 package com.example.foodscanner.overview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.foodscanner.activities.ScanSuccessful
 import com.example.foodscanner.databinding.FragmentOverviewBinding
 
 /**
- * This fragment shows the the status of the Mars photos web services transaction.
+ * This fragment shows the the status of product info web services transaction.
  */
 class OverviewFragment : Fragment() {
 
@@ -46,6 +48,17 @@ class OverviewFragment : Fragment() {
 
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+
+        // get data from ScanSuccessful activity
+        val activity: ScanSuccessful = activity as ScanSuccessful
+        val results: Bundle? = activity.getMyData()
+        val lastScan = results?.getString("lastScan")
+
+        if (lastScan != null) {
+            viewModel.getItemInfo(lastScan)
+        } else {
+            Log.d("ERROR", "This shouldn't happen")
+        }
 
         return binding.root
     }

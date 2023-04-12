@@ -16,12 +16,15 @@
 
 package com.example.foodscanner.overview
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodscanner.network.BarcodeApi
+import com.example.foodscanner.network.ProductInfo
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -29,25 +32,64 @@ import kotlinx.coroutines.launch
 class OverviewViewModel : ViewModel() {
 
     // The internal MutableLiveData that stores the status of the most recent request
-    private val _status = MutableLiveData<String>()
+    private val _status = MutableLiveData<String>("Loading product information...")
 
     // The external immutable LiveData for the request status
     val status: LiveData<String> = _status
-    /**
-     * Call getMarsPhotos() on init so we can display status immediately.
-     */
-    init {
-        getMarsPhotos()
-    }
+
+    init {    } // does nothing
 
     /**
-     * Gets Mars photos information from the Mars API Retrofit service and updates the
+     * Gets Item info information from the Barcode API Retrofit service and updates the
      * [MarsPhoto] [List] [LiveData].
      */
-    private fun getMarsPhotos() {
+    fun getItemInfo(upc: String) {
+
         viewModelScope.launch {
-            val listResult = BarcodeApi.retrofitService.getPhotos()
-            _status.value = listResult
+            try { // "$BASE_URL$upc.json"
+                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("${Companion.BASE_URL}$upc.json")
+                Log.d("Results", apiResponse.toString())
+                val productInfo: ProductInfo = parseResponse(apiResponse)
+                _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl}"
+            } catch (e: Exception) {
+                _status.value = "Failure: ${e.message}"
+            }
         }
+    }
+
+    private fun parseResponse(response: String?): ProductInfo {
+        val parsed = ProductInfo()
+        val json = JSONObject(response)
+        if (json.getInt("status") == 1) {
+            val jsonProduct = json.getJSONObject("product")
+            parsed.ingredients = jsonProduct.getString("ingredients_text")
+
+            parsed.productName = smartGetProductName(jsonProduct)
+
+            parsed.imageUrl = jsonProduct.getString("image_front_small_url")
+        } else {
+            parsed.error = "Product not found"
+        }
+
+        return parsed
+    }
+
+    // js code that does what the below function needs to:
+//    function smartGetProductName(product) {
+//        for(key of Object.keys(product)) {
+//            if (key.startsWith("product_name")) {
+//                return product[key];
+//            }
+//        }
+//    }
+
+    // Finds first field that starts with "product_name" and returns associated value NOT IMPLEMENTED
+    private fun smartGetProductName(product: JSONObject): String {
+        return product.getString("product_name")
+    }
+
+    // Holds BASE_URL constant
+    companion object {
+        private const val BASE_URL = "https://world.openfoodfacts.org/api/v0/product/"
     }
 }
