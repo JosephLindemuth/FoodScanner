@@ -50,6 +50,12 @@ class History : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.Profile -> {
+                    val outIntent: Intent = Intent(applicationContext, Profile::class.java)
+                    startActivity(outIntent)
+                    overridePendingTransition(0, 0)
+                    return@OnNavigationItemSelectedListener true
+                }
                 R.id.History -> return@OnNavigationItemSelectedListener true
             }
             false
@@ -72,6 +78,7 @@ class History : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
 
 }

@@ -42,6 +42,12 @@ class ScanSuccessful : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.Profile -> {
+                    val outIntent: Intent = Intent(applicationContext, Scan::class.java)
+                    startActivity(outIntent)
+                    overridePendingTransition(0, 0)
+                    return@OnNavigationItemSelectedListener true
+                }
                 R.id.History -> return@OnNavigationItemSelectedListener true
             }
             false
