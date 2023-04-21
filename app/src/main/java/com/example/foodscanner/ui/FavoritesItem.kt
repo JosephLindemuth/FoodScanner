@@ -1,6 +1,16 @@
+package com.example.foodscanner.ui
+
+import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
+import com.example.foodscanner.R
+
 class FavoritesItem() {
     var upc: String = ""
-    var favScanned: String = ""
+
+    var fav: Boolean = false
+    var lastScanned: String = ""
+
+
 
     constructor(upc: String) : this()
     {
@@ -9,6 +19,6 @@ class FavoritesItem() {
 
     constructor(upc: String, scanned: String) : this(upc)
     {
-        this.favScanned = scanned
+        this.lastScanned = scanned
     }
 }

@@ -1,6 +1,6 @@
 package com.example.foodscanner.ui
 
-import FavoritesItem
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

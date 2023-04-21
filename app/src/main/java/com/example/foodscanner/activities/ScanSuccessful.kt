@@ -31,7 +31,7 @@ class ScanSuccessful : AppCompatActivity() {
                 R.id.History -> {
                     val outIntent: Intent = Intent(applicationContext, History::class.java)
                     startActivity(outIntent)
-                    overridePendingTransition(0, 0)
+                    overridePendingTransition(1, 1)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.fav -> {
@@ -40,7 +40,13 @@ class ScanSuccessful : AppCompatActivity() {
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.Scan -> return@OnNavigationItemSelectedListener true
+                R.id.Scan -> {
+                    val outIntent: Intent = Intent(applicationContext, Scan::class.java)
+                    startActivity(outIntent)
+
+                    overridePendingTransition(0, 0)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
             false
         })

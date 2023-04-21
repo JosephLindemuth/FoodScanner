@@ -67,7 +67,7 @@ class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.His
         val current: HistoryItem = files[position]
 
         holder.upc.text = current.upc
-        holder.fav.text = current.btn.toString()
+        //holder.fav.text = current.btn.toString()
     }
 
     class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

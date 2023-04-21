@@ -13,6 +13,7 @@ import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
 import com.example.foodscanner.ui.HistoryRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 
 class History : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,10 @@ class History : AppCompatActivity() {
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
-        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
+        //NavigationBarView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener)
+
+        bottomNavigationView.setOnItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.Scan -> {
                     val outIntent: Intent = Intent(applicationContext, Scan::class.java)

@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.foodscanner.activities.Favorites
 import com.example.foodscanner.activities.ScanSuccessful
 import com.example.foodscanner.databinding.FragmentOverviewBinding
 
@@ -59,6 +60,12 @@ class OverviewFragment : Fragment() {
         } else {
             Log.d("ERROR", "This shouldn't happen")
         }
+    /*
+        val fav_activity: Favorites = activity as Favorites
+        val fav_results: Bundle? = fav_activity.getMyData()
+        val fav_list =  fav_results?.getStringArray("favList")
+    */
+
 
         return binding.root
     }

@@ -15,7 +15,7 @@ import com.example.foodscanner.ui.FavoritesRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Favorites : AppCompatActivity() {
-    //var bottomNavigationView: BottomNavigationView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
@@ -27,18 +27,19 @@ class Favorites : AppCompatActivity() {
         }
 
         // set up RecyclerView for files
+
         val favScanList: RecyclerView = findViewById<RecyclerView>(R.id.FavScans)
         favScanList.layoutManager = LinearLayoutManager(this)
         favScanList.setHasFixedSize(true)
         val favoritesAdapter = FavoritesRecyclerAdapter(favScans)
         favScanList.adapter = favoritesAdapter
-        
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.History -> {
-                    val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
+                    val outIntent: Intent = Intent(applicationContext, History::class.java)
                     startActivity(outIntent)
                     overridePendingTransition(0, 0)
                     return@OnNavigationItemSelectedListener true
@@ -53,6 +54,7 @@ class Favorites : AppCompatActivity() {
             }
             false
         })
+
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -71,4 +73,12 @@ class Favorites : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    /*
+    fun getMyData(): Bundle? {
+        val bundle = Bundle()
+        bundle.putStringArray("favScans", favScans)
+        return bundle
+    }
+    */
+
 }
