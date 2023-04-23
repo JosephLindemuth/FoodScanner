@@ -5,8 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
+import org.w3c.dom.Text
 import java.util.*
 
 class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.HistoryHolder>()
@@ -15,6 +18,7 @@ class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.His
 
     constructor(files: Array<String>) : this()
     {
+
         for (upc in files)
         {
             this.files.add(HistoryItem(upc))
@@ -64,15 +68,18 @@ class HistoryRecyclerAdapter() : RecyclerView.Adapter<HistoryRecyclerAdapter.His
 
     override fun onBindViewHolder(holder: HistoryHolder, position: Int)
     {
+
         val current: HistoryItem = files[position]
 
         holder.upc.text = current.upc
-        //holder.fav.text = current.btn.toString()
     }
+
 
     class HistoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
+
         val upc: TextView = itemView.findViewById<TextView>(R.id.upc)
-        val fav: Button = itemView.findViewById<Button>(R.id.btn)
+
+
     }
 }

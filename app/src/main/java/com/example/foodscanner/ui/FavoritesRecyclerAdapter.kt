@@ -73,6 +73,5 @@ class FavoritesRecyclerAdapter() : RecyclerView.Adapter<FavoritesRecyclerAdapter
     class FavoritesHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val upc: TextView = itemView.findViewById<TextView>(R.id.upc)
-        val fav: Button = itemView.findViewById(R.id.btn)
     }
 }

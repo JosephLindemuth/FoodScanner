@@ -6,19 +6,27 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
+import com.example.foodscanner.ui.HistoryItem
 import com.example.foodscanner.ui.HistoryRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 
 class History : AppCompatActivity() {
+
+    private lateinit var app: FoodScanner
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+
+        app = application as FoodScanner
 
         val scanHistory: Array<String> = (application as FoodScanner).scanHistory.toTypedArray();
 

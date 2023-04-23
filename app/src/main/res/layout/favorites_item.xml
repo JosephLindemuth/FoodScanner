@@ -17,16 +17,6 @@
 
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_centerVertical="true"
-        android:drawableTop="@drawable/ic_fav"
-        android:layout_alignParentRight="true"
-        android:drawableTint="@color/white"
-        android:drawablePadding="4dp"/>
-
 
     <View
         android:layout_width="match_parent"

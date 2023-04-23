@@ -122,7 +122,7 @@ class Scan : AppCompatActivity() {
                 Log.d("Barcode Results", upc)
                 app.lastScanned = upc
                 app.scanHistory.add(upc)
-                app.favScans.add(upc)
+
                 val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
