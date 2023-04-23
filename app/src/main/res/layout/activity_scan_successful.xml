@@ -37,6 +37,18 @@
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_overview" />
 
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:drawableTop="@drawable/ic_fav"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:drawableTint="@color/white"
+        android:drawablePadding="4dp"
+        />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

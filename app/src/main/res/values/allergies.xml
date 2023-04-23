@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="allergies_array">
-        <item>potato</item>
-        <item>pork</item>
-        <item>peanut</item>
-        <item>pea</item>
+        <item>Milk</item>
+        <item>Eggs</item>
+        <item>Soy</item>
+        <item>Fish</item>
+        <item>Shellfish</item>
+        <item>Tree Nuts</item>
+        <item>Peanuts</item>
+        <item>Wheat</item>
+        <item>Sesame</item>
+        <item>Potato</item>
+        <item>Pork</item>
+        <item>Pea</item>
     </string-array>
 </resources>

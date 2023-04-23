@@ -2,18 +2,38 @@ package com.example.foodscanner.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
+import com.example.foodscanner.ui.FavoritesRecyclerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class Favorites : AppCompatActivity() {
-    //var bottomNavigationView: BottomNavigationView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
+
+        val favScans: Array<String> = (application as FoodScanner).favScans.toTypedArray();
+
+        favScans.forEachIndexed { index, barcode ->
+            Log.d("Favorite Value $index", barcode)
+        }
+
+        // set up RecyclerView for files
+
+        val favScanList: RecyclerView = findViewById<RecyclerView>(R.id.FavScans)
+        favScanList.layoutManager = LinearLayoutManager(this)
+        favScanList.setHasFixedSize(true)
+        val favoritesAdapter = FavoritesRecyclerAdapter(favScans)
+        favScanList.adapter = favoritesAdapter
+
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigator)
         bottomNavigationView.selectedItemId
         bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -34,6 +54,7 @@ class Favorites : AppCompatActivity() {
             }
             false
         })
+
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -52,4 +73,12 @@ class Favorites : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+    /*
+    fun getMyData(): Bundle? {
+        val bundle = Bundle()
+        bundle.putStringArray("favScans", favScans)
+        return bundle
+    }
+    */
+
 }

@@ -54,6 +54,7 @@ class Scan : AppCompatActivity() {
                     val outIntent: Intent = Intent(applicationContext, History::class.java)
                     startActivity(outIntent)
                     overridePendingTransition(0, 0)
+
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.fav -> {
@@ -121,6 +122,7 @@ class Scan : AppCompatActivity() {
                 Log.d("Barcode Results", upc)
                 app.lastScanned = upc
                 app.scanHistory.add(upc)
+
                 val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
 
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
