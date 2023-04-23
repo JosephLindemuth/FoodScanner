@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
@@ -27,6 +28,17 @@ class ScanSuccessful : AppCompatActivity() {
         // set scannedItem textView to display what the last scanned item was
         val textView = findViewById<View>(R.id.scannedItem) as TextView
         textView.text = lastScan
+
+        // The line below makes it crash, trying to access list of ingredients, may be better to do
+        // it in ProductInfo
+        //Toast.makeText(this, textView.text.indexOf("Ingredients"), Toast.LENGTH_LONG).show()
+        for(item : String in app.ingredientsOfDoom[0]){
+            if(textView.text.contains(item)){
+                val msg = "This product contains: $item"
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            }
+        }
+
 
         val fav : Button = findViewById<Button>(R.id.btn)
         fav.setOnClickListener{
