@@ -21,16 +21,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.network.BarcodeApi
 import com.example.foodscanner.network.ProductInfo
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
+val fish = listOf("Anchovies","Bass","Catfish","Cod","Flounder","Grouper","Haddock","Hake","Halibut",
+    "Herring","Mahi mahi","Perch","Pike","Pollock","Salmon","Scrod","Sole","Snapper","Swordfish",
+    "Tilapia","Trout","Tuna","Fish Flavoring","Fish gelatin","Fish oil","Fish sticks",
+    "Imitation Fish","Imitation Crab","Artificial fish","shellfish","surimi","sea legs","sea sticks")
+public val ingredientsOfDoom : List<List<String>> = listOf(fish)
+
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
 class OverviewViewModel : ViewModel() {
-
+    private lateinit var app: FoodScanner
     // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<String>("Loading product information...")
 
@@ -46,20 +53,25 @@ class OverviewViewModel : ViewModel() {
     fun getItemInfo(upc: String) {
 
         viewModelScope.launch {
+
             try { // "$BASE_URL$upc.json"
                 val apiResponse: String? = BarcodeApi.retrofitService.getInfo("${Companion.BASE_URL}$upc.json")
                 Log.d("Results", apiResponse.toString())
-                val productInfo: ProductInfo = parseResponse(apiResponse)
-                _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl}"
+                val productInfo = parseResponse(apiResponse)
+                _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl} \n\n Allergens: ${productInfo.allergens}"
             } catch (e: Exception) {
                 _status.value = "Failure: ${e.message}"
             }
         }
     }
 
+
     private fun parseResponse(response: String?): ProductInfo {
         val parsed = ProductInfo()
         val json = JSONObject(response)
+
+
+
         if (json.getInt("status") == 1) {
             val jsonProduct = json.getJSONObject("product")
             parsed.ingredients = jsonProduct.getString("ingredients_text")
@@ -67,6 +79,18 @@ class OverviewViewModel : ViewModel() {
             parsed.productName = smartGetProductName(jsonProduct)
 
             parsed.imageUrl = jsonProduct.getString("image_front_small_url")
+
+            parsed.allergens = jsonProduct.getString("allergens_from_ingredients")
+
+            for(item: String in parsed.ingredients.split(",")){
+                Log.d("Ingredient: ",item)
+                for(allergy: String in fish) {
+                    if (item.contains(allergy,true)) {
+                        parsed.allergens = parsed.allergens + ", ${allergy}"
+
+                    }
+                }
+            }
         } else {
             parsed.error = "Product not found"
         }
