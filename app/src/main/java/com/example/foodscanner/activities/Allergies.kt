@@ -6,7 +6,7 @@ import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
 import com.example.foodscanner.ui.main.AllergiesFragment.Companion.newInstance
 
-class allergies : AppCompatActivity() {
+class Allergies : AppCompatActivity() {
     private lateinit var app: FoodScanner
 
 
