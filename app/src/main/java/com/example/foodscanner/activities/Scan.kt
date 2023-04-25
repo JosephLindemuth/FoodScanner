@@ -30,6 +30,7 @@ import com.google.mlkit.vision.barcode.common.Barcode
 import java.util.concurrent.ExecutorService
 
 
+
 class Scan : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMainBinding
     private lateinit var cameraExecutor: ExecutorService

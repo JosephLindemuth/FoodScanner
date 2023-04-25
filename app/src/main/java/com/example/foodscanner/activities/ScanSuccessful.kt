@@ -85,6 +85,7 @@ class ScanSuccessful : AppCompatActivity() {
     fun getMyData(): Bundle? {
         val bundle = Bundle()
         bundle.putString("lastScan", lastScan)
+        bundle.putIntegerArrayList("myAllergies", app.myAllergies)
         return bundle
     }
 }

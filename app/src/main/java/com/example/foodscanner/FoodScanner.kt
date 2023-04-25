@@ -7,7 +7,7 @@ import android.view.MenuInflater
 
 
 class FoodScanner : Application() {
-
+    public var myAllergies = ArrayList<Int>()
     public val favScans = HashSet<String>()
     public val scanHistory = HashSet<String>() // Hashset is unordered which should be change to be an ordered list
     public var lastScanned: String = ""

@@ -56,7 +56,7 @@ class History : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.fav -> {
-                    val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
+                val outIntent: Intent = Intent(applicationContext, Favorites::class.java)
                     startActivity(outIntent)
 
                     overridePendingTransition(0, 0)
