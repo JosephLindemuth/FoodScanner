@@ -27,6 +27,9 @@
             android:name=".activities.History"
             android:exported="false" />
         <activity
+            android:name=".activities.Login"
+            android:exported="true" />
+        <activity
             android:name=".activities.Scan"
             android:exported="true">
             <intent-filter>

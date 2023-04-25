@@ -3,4 +3,5 @@
     <string name="HistoryTitle">History</string>
     <string name="HistoryPlaceholder">Hello There</string>
     <string name="ScanSuccessfulTitle">Item Scanned</string>
+    <string name="EmailGreet">Email</string>
 </resources>

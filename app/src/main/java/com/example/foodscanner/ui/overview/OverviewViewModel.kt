@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.foodscanner.overview
+package com.example.foodscanner.ui.overview
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -47,7 +47,7 @@ class OverviewViewModel : ViewModel() {
 
         viewModelScope.launch {
             try { // "$BASE_URL$upc.json"
-                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("${Companion.BASE_URL}$upc.json")
+                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("$BASE_URL$upc.json")
                 Log.d("Results", apiResponse.toString())
                 val productInfo: ProductInfo = parseResponse(apiResponse)
                 _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl}"
