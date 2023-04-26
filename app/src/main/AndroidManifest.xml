@@ -28,13 +28,13 @@
             android:name=".activities.History"
             android:exported="false" />
         <activity
-            android:name=".activities.Login"
+            android:name=".activities.Scan"
             android:exported="true" />
         <activity
             android:name=".activities.signUpPage"
             android:exported="true" />
         <activity
-            android:name=".activities.Scan"
+            android:name=".activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
