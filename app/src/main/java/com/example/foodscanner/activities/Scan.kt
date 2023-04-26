@@ -17,11 +17,9 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.foodscanner.FoodScanner
-import com.example.foodscanner.viewmodels.QrCodeDrawable
 import com.example.foodscanner.viewmodels.QrCodeViewModel
 import com.example.foodscanner.R
 import com.example.foodscanner.databinding.ActivityMainBinding
-import com.example.foodscanner.ui.main.AllergiesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
@@ -124,11 +122,8 @@ class Scan : AppCompatActivity() {
                 app.lastScanned = upc
                 app.scanHistory.add(upc)
 
-                val qrCodeDrawable = QrCodeDrawable(qrCodeViewModel)
-
                 previewView.setOnTouchListener(qrCodeViewModel.qrCodeTouchCallback)
                 previewView.overlay.clear()
-                previewView.overlay.add(qrCodeDrawable)
 
                 // switch to scan succeeded tab
                 val outIntent: Intent = Intent(applicationContext, ScanSuccessful::class.java)
