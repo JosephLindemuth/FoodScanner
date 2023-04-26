@@ -16,6 +16,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodScanner"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".activities.allergies"
@@ -28,6 +29,9 @@
             android:exported="false" />
         <activity
             android:name=".activities.Login"
+            android:exported="true" />
+        <activity
+            android:name=".activities.signUpPage"
             android:exported="true" />
         <activity
             android:name=".activities.Scan"
