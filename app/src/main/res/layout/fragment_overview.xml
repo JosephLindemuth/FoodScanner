@@ -23,7 +23,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.foodscanner.overview.OverviewViewModel" />
+            type="com.example.foodscanner.ui.overview.OverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
