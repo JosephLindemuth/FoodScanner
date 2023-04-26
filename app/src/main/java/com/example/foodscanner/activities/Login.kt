@@ -47,12 +47,12 @@ class Login: AppCompatActivity()
             startActivity(Intent)
         }
     }
-    override fun onStart() {
-        super.onStart()
+    //override fun onStart() {
+       // super.onStart()
 
-        if(firebaseAuth.currentUser != null){
-            val intent = Intent(this, Scan::class.java)
-            startActivity(intent)
-        }
-    }
+        //if(firebaseAuth.currentUser != null){
+      //      val intent = Intent(this, Scan::class.java)
+          //  startActivity(intent)
+        //}
+    //}
 }
