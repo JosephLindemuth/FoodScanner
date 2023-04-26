@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.activities.Favorites
 import com.example.foodscanner.activities.ScanSuccessful
 import com.example.foodscanner.databinding.FragmentOverviewBinding
@@ -33,7 +34,7 @@ import com.example.foodscanner.databinding.FragmentOverviewBinding
 class OverviewFragment : Fragment() {
 
     private val viewModel: OverviewViewModel by viewModels()
-
+    private lateinit var app: FoodScanner
     /**
      * Inflates the layout with Data Binding, sets its lifecycle owner to the OverviewFragment
      * to enable Data Binding to observe LiveData, and sets up the RecyclerView with an adapter.
@@ -54,9 +55,11 @@ class OverviewFragment : Fragment() {
         val activity: ScanSuccessful = activity as ScanSuccessful
         val results: Bundle? = activity.getMyData()
         val lastScan = results?.getString("lastScan")
+        val myAllergies = results?.getIntegerArrayList("myAllergies")
 
-        if (lastScan != null) {
-            viewModel.getItemInfo(lastScan)
+
+        if (lastScan != null && myAllergies != null) {
+            viewModel.getItemInfo(lastScan,myAllergies)
         } else {
             Log.d("ERROR", "This shouldn't happen")
         }

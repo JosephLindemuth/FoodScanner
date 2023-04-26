@@ -7,10 +7,13 @@
     tools:context=".activities.allergies"
     >
 
-<androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:entries="@array/allergies_array"
-    tools:layout_editor_absoluteX="-16dp"
-    tools:layout_editor_absoluteY="234dp" />
+    <ListView
+        android:id="@+id/allergy_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:entries="@array/allergies_array"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="234dp"
+        android:background="@color/white"/>
+
 </RelativeLayout>
