@@ -143,21 +143,19 @@ class OverviewViewModel : ViewModel() {
 
             parsed.imageUrl = jsonProduct.getString("image_front_small_url")
 
-            parsed.allergens = jsonProduct.getString("allergens_from_ingredients")
+            //parsed.allergens = jsonProduct.getString("allergens_from_ingredients")
 
-            Log.d("SELECTED ALLERGIES: ", myAllergies.toString())
-            //for(pos : Int in myAllergies.iterator()){
+
             for(currList : List<String> in ingredientsOfDoom){
-                Log.d("CURRLIST: ", currList[0])
-                //parsed.allergens = parsed.allergens + "\n  ${currList[0]}: "
+
                 var allergenFound = false;
                 for(item: String in parsed.ingredients.split(",")){
                     //Log.d("Ingredient: ",item)
                     for(allergy: String in currList) {
                         if (item.contains(allergy,true)) {
-                            parsed.allergens = parsed.allergens + "\n  ${currList[0]} "
+                            parsed.allergens = parsed.allergens + "\n  ${currList[0]}: "
                             allergenFound = true
-                            //parsed.allergens = parsed.allergens + ", ${item}"
+                            parsed.allergens = parsed.allergens + "${item}, "
                             break
                         }
                     }

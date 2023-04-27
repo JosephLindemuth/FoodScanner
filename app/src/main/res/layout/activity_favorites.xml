@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/FavoritesTitle"
+        android:text="Favorites"
         android:textColor="?android:textColorPrimary"
         android:textSize="40sp"
         android:textStyle="bold" />
