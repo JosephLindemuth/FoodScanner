@@ -5,4 +5,5 @@
     <string name="ScanSuccessfulTitle">Item Scanned</string>
     <string name="scan">Scan</string>
     <string name="FavoritesTitle" />
+    <string name="EmailGreet">Email</string>
 </resources>

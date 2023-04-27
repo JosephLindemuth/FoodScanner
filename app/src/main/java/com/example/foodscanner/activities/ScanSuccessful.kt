@@ -16,7 +16,7 @@ import com.example.foodscanner.FoodScanner
 import com.example.foodscanner.R
 import com.example.foodscanner.databinding.FragmentOverviewBinding
 import com.example.foodscanner.network.ProductInfo
-import com.example.foodscanner.overview.OverviewViewModel
+import com.example.foodscanner.ui.overview.OverviewViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ScanSuccessful : AppCompatActivity() {

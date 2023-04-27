@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.foodscanner.overview
+package com.example.foodscanner.ui.overview
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -118,7 +118,7 @@ class OverviewViewModel : ViewModel() {
         viewModelScope.launch {
 
             try { // "$BASE_URL$upc.json"
-                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("${Companion.BASE_URL}$upc.json")
+                val apiResponse: String? = BarcodeApi.retrofitService.getInfo("$BASE_URL$upc.json")
                 Log.d("Results", apiResponse.toString())
                 val productInfo = parseResponse(apiResponse, myAllergies)
                 _status.value = "Food info received: \n\nName: ${productInfo.productName} \n\nIngredients: ${productInfo.ingredients} \n\nImage URL: ${productInfo.imageUrl} \n\n Allergens: ${productInfo.allergens}"
@@ -143,21 +143,19 @@ class OverviewViewModel : ViewModel() {
 
             parsed.imageUrl = jsonProduct.getString("image_front_small_url")
 
-            parsed.allergens = jsonProduct.getString("allergens_from_ingredients")
+            //parsed.allergens = jsonProduct.getString("allergens_from_ingredients")
 
-            Log.d("SELECTED ALLERGIES: ", myAllergies.toString())
-            //for(pos : Int in myAllergies.iterator()){
+
             for(currList : List<String> in ingredientsOfDoom){
-                Log.d("CURRLIST: ", currList[0])
-                //parsed.allergens = parsed.allergens + "\n  ${currList[0]}: "
+
                 var allergenFound = false;
                 for(item: String in parsed.ingredients.split(",")){
                     //Log.d("Ingredient: ",item)
                     for(allergy: String in currList) {
                         if (item.contains(allergy,true)) {
-                            parsed.allergens = parsed.allergens + "\n  ${currList[0]} "
+                            parsed.allergens = parsed.allergens + "\n  ${currList[0]}: "
                             allergenFound = true
-                            //parsed.allergens = parsed.allergens + ", ${item}"
+                            parsed.allergens = parsed.allergens + "${item}, "
                             break
                         }
                     }
